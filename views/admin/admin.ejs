@@ -1,0 +1,29 @@
+<%- include("../partials/header") %>
+<div class="ui container segment">
+	<h5>
+		Welcome admin
+		<%= users.length %>
+	</h5>
+	<p>No Of Registered Users===> <%= users.length %></p>
+	
+	<p><a class="ui button blue" href="/blogs/new">Add a new Blog</a></p>
+		
+		
+	<div class="ui container segment">	
+		<form method="POST" class="ui form"  action="/admin?_method=DELETE">
+			 <div class="field">
+    	<input type="text" name="user" placeholder="enter username">
+  			</div>
+			
+		<button  class="ui red button">
+			Remove  User
+		</button>
+	</form>
+		
+	</div>	
+	<div class="ui container segment">
+			<h5>Add new moderator</h5>
+			<p><a class="ui button blue" href="/admin/register">Create</a></p>
+		</div>
+</div>
+<%- include("../partials/footer") %>
