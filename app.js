@@ -14,28 +14,20 @@ const route 		=require("./routes/routes");
 const auth 			=require("./routes/auth");
 const adminRoute 			=require("./routes/admin");
 const commentRoute 		= require("./routes/comment");
-const seedsDB 		= require("./seeds");
 const passport 		= require("passport");
 const LocalStrategy = require("passport-local");
 
-//seedsDB()
-//Mongoose Connection local
-mongoose.connect("mongodb://localhost:27017/newRestfulBlogApp", {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+
+
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true});
 var db 				= mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("connected")
 });
 
-
-/**
-mongoose.connect('mongodb+srv://EsNonso:nelnon54321@cluster0.toqm9.mongodb.net/<dbname>?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
-var db 				= mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("connected")
-});
-**/
 
 //=================================
 //Passport Authentication
