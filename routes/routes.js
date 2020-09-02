@@ -4,7 +4,7 @@ const Blog = require("../models/blog");
 const expressSanitizer = require("express-sanitizer");
 const middleWare = require("../middleware");
 
-// Restful routes
+// Restful routes FOR BLOGS
 // Index Route
 router.get("/", function(req, res){
 	res.redirect("/blogs");
