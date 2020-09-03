@@ -1,1 +1,79 @@
+<html>
+	<head>
+		<title>My Blog</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	</head>
+	<body>
+		
+				<div class="ui secondary pointing menu">
+			  <a class="active item">
+				<h5>
+					Logo
+				  </h5>
+			  </a>
+			  <a class="item" href="/blogs">
+				Blogs
+			  </a>
+			  <a class="item">
+				Music/Entertainment
+			  </a>
+			  <div class="right menu">
+				  <% if(currentUser&& currentUser.isAdmin) {%>
+				  <a class="ui item"><a class="ui blue button" href="/admin">Admin Page</a></a>
+				  <%}%>
+				  <% if(!currentUser) {%>
+				<a class="ui item">
+				  	<a href="/register" class="ui button">Register</a>
+					<a href="/login" class="ui button">Login</a>
+				</a>
+				  <%} else { %>
+				  <a href="#" class="ui button">Welcome <%= currentUser.username %></a>
+				  <a href="/logout" class="ui button">Logout</a>
+				  <%}%>
+			  </div>
+			</div>
 
+	
+		<% if(error && error.length > 0){%>
+		<div class ="ui main text container segment">
+			<div class="ui warning message">
+				<div class="header">Error</div>
+			 	<p><%= error %></p>
+					
+		</div>
+		</div>
+		<% } %>
+		
+		
+		<% if(success && success.length > 0){%>
+		<div class ="ui main text container segment">
+			<div class="ui message">
+				<div class="header">Sucess</div>
+			 	<p><%= success %></p>
+			</div>			
+		</div>		 
+		<% } %>
+		
+		<% if(currentUser && currentUser.isAdmin){%>
+		<div class ="ui main text container segment">
+			<div class="ui message">
+				<div class="header">Logged In As Admin</div>
+			 	
+			</div>			
+		</div>		 
+		<% } %>
+		
+		<% if(currentUser && currentUser.isModerator){%>
+		<div class ="ui main text container segment">
+			<div class="ui message">
+				<div class="header">Logged In As a Moderator</div>
+			 	
+			</div>			
+		</div>		 
+		<% } %>
+		
+		
+		
+		
+		
