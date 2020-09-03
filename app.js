@@ -1,12 +1,13 @@
 
-const express 		= require("express");
-const app 			= express();
-const mongoose 		= require('mongoose');
-var methodOverride 	= require('method-override')
-const bodyParser 	= require("body-parser");
-const expressSanitizer = require('express-sanitizer');
-const passportLocalMongoose = require("passport-local-mongoose");
-const flash 		=require("connect-flash");
+const express 		= require("express"); //NODE APPLICATION USED FOR INTERACTION
+const app 			= express(); // ATTACHES EXPRESS TO OUR APP
+const mongoose 		= require('mongoose');// DATABASE
+var methodOverride 	= require('method-override')// OVERRIDES  POST REQUEST FROM USERS TO BECOME PUT AND DELETE
+const bodyParser 	= require("body-parser");// EXPRESS MIDDLEWARE THAT ANALYZES CORRECT SYNTAX OF USER REQUEST AND ATTACHES IT TO BODY
+const expressSanitizer = require('express-sanitizer');// EXPRESS MIDDLEWARE THAT GETS THE USER REQUEST AND INFO FROM BODY
+const passport 		= require("passport");// FOR AUTHENTICATION
+const passportLocalMongoose = require("passport-local-mongoose");//FRAMEWORK FOR PASSPORT TO INTERACT WITH MONGOOSE 
+const flash 		=require("connect-flash");//DISPLAYS FLASH MESSAGES
 const User 			=require("./models/users");
 const Blog 			= require("./models/blog");
 const Comment 		= require("./models/comment");
@@ -14,13 +15,10 @@ const route 		=require("./routes/routes");
 const auth 			=require("./routes/auth");
 const adminRoute 			=require("./routes/admin");
 const commentRoute 		= require("./routes/comment");
-const passport 		= require("passport");
-const LocalStrategy = require("passport-local");
 
-
-
-
-
+//===============================================
+//MONGOOSE CONNECTION
+//========================================================
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true});
 var db 				= mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -51,16 +49,18 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-//ejs connection
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-
+//=================================================================================================================
+//VARIABLES ATTACHED TO EXPRESS TO BE CALLED ANYWHERE IN THE CODE BEFORE MOVING TO THE NEXT FUNCTION
+//======================================================================================================================
 app.use(function(req, res, next){
-	res.locals.currentUser = req.user
-	res.locals.error = req.flash("error");
-	res.locals.success = req.flash("success");
+	res.locals.currentUser = req.user //VARIABLE TO KEEP TRACK IF THE USER IS LOGGED IN
+	res.locals.error = req.flash("error"); //KEEPS TRACK OF ERROR MESSAGES
+	res.locals.success = req.flash("success");// KEEPS TRACK OF SUCCESS MESSAGES
 	
 	next();
 });
