@@ -1,1 +1,32 @@
+<%- include("partials/header") %>
 
+<%if(currentUser && currentUser.isAdmin){	%>
+	<div class ="ui raised very padded text container segment">
+	<h1>
+		<a class="ui button" href="/blogs/new">Add a new Blog</a>
+	</h1>
+<% }%>
+</div>
+<div class ="ui main text container segment">
+	<h1>
+		My Blog Posts
+	</h1>
+<% blog.forEach(function(blog){%>
+<div class ="ui segment">
+	<div class="ui two column very relaxed grid">
+		<div class="column">
+		<img src = "<%= blog.blogImage%>">	
+		</div>
+		<div class="column">
+			<h3><%= blog.blogTitle %></h3>
+		<p><%= blog.blogNews.substring(0, 100) %>...</p>
+	<a href="/blogs/<%= blog._id %>">Read More. Created By:<%= blog.author["username"] %></a>
+		<p><%= blog.date.toDateString() %></p>
+		</div>
+	</div>
+	<div class="ui vertical divider">
+	</div>
+</div>
+<%})%>
+</div>
+<%- include("partials/footer") %>
